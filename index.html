@@ -7,6 +7,30 @@
     <link rel="stylesheet" href="./assets/styles.css">
 </head>
 <body>
+    <h1>Movie info</h1>
+    <div class="input">
+        <label for="mname">Enter Movie name:</label>
+        <input type="text" name="mname" id="mname" required>
+        <label for="year">Enter the year:</label>
+        <input type="number" name="year" min=1900 max=2030 id="year">
+        <button type="submit" id="submit">Submit</button>
+    </div>
+    <div class="info display">
+        <h1>data.Title</h1>
+        <h2>data.Released</h2>
+        <h3>cast and crew : ${data.Actors}</h3>
+        <p>data.Director</p>
+        <p>data.Genre</p>
+        <p>data.Language</p>
+        <p>data.Plot</p>
+        <p>Rating : ${data.Rating[0].value}</p>
+
+    </div>
+    
+    <div class="towatch">
+        
+    </div>
+
     <script src="./assets/script.js"></script>
 </body>
 </html>

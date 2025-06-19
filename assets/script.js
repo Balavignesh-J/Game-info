@@ -5,8 +5,9 @@ const mname = document.getElementById("mname");
 const year = document.querySelector("#year");
 const submit = document.getElementById("submit");
 const display = document.querySelector(".info");
-let liked =[]
+let likedid = [];
 
+/* Searching section */
 submit.addEventListener("click", async () => {
   const movie_name = mname.value;
   const movie_year = year.value;
@@ -15,6 +16,7 @@ submit.addEventListener("click", async () => {
   console.log(movie_data);
 });
 
+/* Display details section */
 const information = (data) => {
   display.classList.remove("display");
   display.innerHTML = "";
@@ -45,7 +47,7 @@ const information = (data) => {
   const story = document.querySelector(".story");
   const plot = document.getElementById("plot");
   const hide = document.getElementById("hide");
-  const watch = document.getElementById("watch")
+  const watch = document.getElementById("watch");
 
   plot.addEventListener("click", () => {
     story.classList.remove("display");
@@ -55,27 +57,44 @@ const information = (data) => {
     story.classList.add("display");
   });
 
-  watch.addEventListener("click",()=>{
-    liked.push(data.imdbID)
-    console.log(liked)
-  })
+  watch.addEventListener("click", async () => {
+    likedid.push(data.imdbID);
+    console.log(likedid);
+    await liketowatch();
+  });
 };
 
-const getdata = async (name="", year = "",id="") => {
+/* Want to watch section */
+const section = document.getElementById("blank");
+let likeinfo = [];
+
+const liketowatch = async () => {
+  if (likedid.length !== 0) {
+    section.classList.add("display");
+    for (let i = 0; i < likedid.length; i++) {
+      const like = await getdata(likedid[i]);
+      likeinfo.push(like);
+    }
+    console.log(likeinfo);
+  } else {
+    section.classList.remove("display");
+  }
+};
+
+/* Get data from api */
+const getdata = async (name = "", year = "", id = "") => {
   let response;
-  if (year) {
+  if (id) {
+    response = await fetch(`${api}i=${id}&plot=full&apikey=${key}`);
+  } else if (year) {
     response = await fetch(
       `${api}t=${name
         .split(" ")
         .join("+")}&year=${year}&plot=full&apikey=${key}`
     );
-  } else if (year==="") {
-    response = await fetch(
-      `${api}t=${name.split(" ").join("+")}&plot=full&apikey=${key}`
-    );
   } else {
     response = await fetch(
-      `${api}i=${id}&plot=full&apikey=${key}`
+      `${api}t=${name.split(" ").join("+")}&plot=full&apikey=${key}`
     );
   }
   const detail = await response.json();

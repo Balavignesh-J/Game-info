@@ -4,8 +4,7 @@ A sleek and responsive web application to search for movie details using the [OM
 
 ## 🌐 Live Demo
 
-[🔗 Click here to see the live project](#) (Optional: Add link if deployed)
-
+[🔗 Click here to see the live project]([#](https://movie-info-bv.netlify.app/))
 ---
 
 ## 📌 Features

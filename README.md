@@ -33,6 +33,7 @@ A sleek and responsive web application to search for movie details using the [OM
 
 ## 📁 Project Structure
 
+```bash
 /
 ├── index.html         # Main HTML file
 ├── assets/
@@ -40,10 +41,8 @@ A sleek and responsive web application to search for movie details using the [OM
 │   ├── script.js      # JavaScript logic
 │   └── img/
 │       └── empty.png  # Placeholder image for empty state
-
-
 ---
-
+```
 🚀 Getting Started
 
 1. Clone the repository
@@ -64,25 +63,11 @@ Just open index.html in your preferred browser.
 
 🔑 API Key Setup
 
-This project uses the OMDb API. The key is already included for testing (apikey=99c56f68). For production use, replace it with your own key from OMDb API Key.
+This project uses the OMDb API. The key is already included for testing. For production use, replace it with your own key from OMDb API Key.
 
 Update the following line in script.js:
 
 const key = "your-own-api-key";
-
-
----
-
-📸 Screenshots
-
-Search & Result	Watchlist
-
-	
-
-
-> (Optional: Add your screenshots in assets/img folder and update links above.)
-
-
 
 
 ---
@@ -94,8 +79,6 @@ Add pagination and support for multiple search results.
 Use a database and user authentication (for cross-device persistence).
 
 Integrate trailer/video previews.
-
-
 
 ---
 

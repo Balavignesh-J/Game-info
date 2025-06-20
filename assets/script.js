@@ -1,4 +1,4 @@
-const api = "http://www.omdbapi.com/?";
+const api = "https://www.omdbapi.com/?";
 const key = "99c56f68";
 
 const mname = document.getElementById("mname");

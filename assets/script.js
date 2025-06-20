@@ -11,7 +11,7 @@ let likedid = [];
 submit.addEventListener("click", async () => {
   const movie_name = mname.value;
   const movie_year = year.value;
-  const movie_data = await getdata(movie_name, movie_year);
+  const movie_data = await getdata(movie_name, movie_year, "");
   information(movie_data);
   console.log(movie_data);
 });
@@ -58,9 +58,12 @@ const information = (data) => {
   });
 
   watch.addEventListener("click", async () => {
-    likedid.push(data.imdbID);
-    console.log(likedid);
-    await liketowatch();
+    const check = likedid.includes(data.imdbID);
+    if (!check) {
+      likedid.push(data.imdbID);
+      console.log(likedid);
+      await liketowatch();
+    }
   });
 };
 
@@ -72,20 +75,38 @@ const liketowatch = async () => {
   if (likedid.length !== 0) {
     section.classList.add("display");
     for (let i = 0; i < likedid.length; i++) {
-      const like = await getdata(likedid[i]);
-      likeinfo.push(like);
+      const like = await getdata("", "", likedid[i]);
+      if (!likeinfo.some((movie) => movie.imdbID === like.imdbID)) {
+        likeinfo.push(like);
+      }
     }
     console.log(likeinfo);
   } else {
     section.classList.remove("display");
   }
+  localStorage.setItem("wanttowatch", JSON.stringify(likeinfo));
+};
+
+const wanttowatch = () => {
+  d=localStorage.getItem("wanttowatch")
+  likeinfo=JSON.parse(d)||[]
+  likeinfo.forEach((data) => {
+    pos = document.createElement("img");
+    pos.src = data.Poster;
+    title = document.createElement("p");
+    title.textContent = data.Title;
+
+    section.classList.remove("display");
+    section.appendChild(pos);
+    section.appendChild(title);
+  });
 };
 
 /* Get data from api */
 const getdata = async (name = "", year = "", id = "") => {
   let response;
   if (id) {
-    response = await fetch(`${api}i=${id}&plot=full&apikey=${key}`);
+    response = await fetch(`${api}i=${id}&apikey=${key}`);
   } else if (year) {
     response = await fetch(
       `${api}t=${name
@@ -100,3 +121,12 @@ const getdata = async (name = "", year = "", id = "") => {
   const detail = await response.json();
   return detail;
 };
+
+document.addEventListener('DOMContentLoaded', () => {
+  const saved = localStorage.getItem("wanttowatch");
+  if (saved) {
+    likeinfo = JSON.parse(saved);
+    likedid = likeinfo.map(movie => movie.imdbID);
+    wanttowatch();
+  }
+});

@@ -41,7 +41,6 @@ A sleek and responsive web application to search for movie details using the [OM
 │   ├── script.js      # JavaScript logic
 │   └── img/
 │       └── empty.png  # Placeholder image for empty state
----
 ```
 🚀 Getting Started
 
